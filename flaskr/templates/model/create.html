@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}New Model{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="model_name">Name</label>
+    <input name="model_name" id="model_name" value="{{ request.form['model_names'] }}" required>
+    <label for="description">Description</label>
+    <textarea name="description" id="description">{{ request.form['description'] }}</textarea>
+    <label for="git_url">github url</label>
+    <textarea name="git_url" id="git_url">{{ request.form['git_url'] }}</textarea>
+    <input type="submit" value="Save">
+  </form>
+{% endblock %}
+

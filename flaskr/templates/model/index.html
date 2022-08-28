@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}models{% endblock %}</h1>
+  {% if g.user %}
+    <a class="action" href="{{ url_for('model.create') }}">New</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {% for model in models %}
+    <article class="model">
+      <header>
+        <div>
+          <h1>{{ model['model_name'] }}</h1>
+          <div class="about">by {{ model['username'] }} on {{ model['created'].strftime('%Y-%m-%d') }}</div>
+        </div>
+        {% if g.user['id'] == model['author_id'] %}
+          <a class="action" href="{{ url_for('model.update', id=model['id']) }}">Edit</a>
+        {% endif %}
+      </header>
+      <p class="body">{{ model['description'] }}</p>
+      <p class="body">{{ model['git_url'] }}</p>
+
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
+{% endblock %}

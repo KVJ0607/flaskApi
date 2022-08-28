@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Edit "{{ model['model_name'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="model_name">Name</label>
+    <input name="model_name" id="model_name"
+      value="{{ request.form['model_name'] or model['model_name'] }}" required>
+    <label for="description">Description</label>
+    <textarea name="description" id="description">{{ request.form['description'] or model['description'] }}</textarea>
+    <label for="git_url">Github url</label>
+    <textarea name="git_url" id="git_url">{{ request.form['git_url'] or model['git_url'] }}</textarea>
+    <input type="submit" value="Save">
+  </form>
+  <hr>
+  <form action="{{ url_for('model.delete', id=model['id']) }}" method="post">
+    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+  </form>
+{% endblock %}
